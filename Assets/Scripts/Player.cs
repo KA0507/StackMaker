@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Swipe swipeControl;
 
     private bool isMove = true;
+    public bool isPause = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour
     {
         // Di chuyển
         Move();
-        if (isMove == true)
+        if (isMove == true || isPause)
         {
             return;
         }

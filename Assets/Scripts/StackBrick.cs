@@ -6,6 +6,8 @@ public class StackBrick : MonoBehaviour
 {
     [SerializeField] private GameObject brick;
     [SerializeField] private Transform people;
+    [SerializeField] private GameObject canvasFinish;
+    [SerializeField] private Player player;
 
     Stack<GameObject> stackBrick = new Stack<GameObject>();
     private int countBrick = 0;
@@ -22,17 +24,23 @@ public class StackBrick : MonoBehaviour
         if (other.gameObject.tag == "Brick")
         {
             // Thêm gạch
-            addBrick(other);
+            AddBrick(other);
         }
         // Va chạm với Bridge
         if (other.gameObject.tag == "Bridge")
         {
             // Xóa gạch
-            removeBrick(other);
+            RemoveBrick(other);
+        }
+        if (other.gameObject.tag == "CubeFinish")
+        {
+            // Xóa gạch
+            clearBrick();
+            TurnOnFinishLevel();
         }
     }
 
-    private void addBrick(Collider other)
+    private void AddBrick(Collider other)
     {
         other.transform.SetParent(transform.parent);// Viên gạch thành con Player
         other.transform.position = transform.position + brick_y * countBrick; // Đặt vị trí viên gạch
@@ -42,7 +50,7 @@ public class StackBrick : MonoBehaviour
         other.GetComponent<BoxCollider>().enabled = false; // Tắt component box collider
         stackBrick.Push(other.gameObject); // Thêm gạch vào stack
     }
-    private void removeBrick(Collider other)
+    private void RemoveBrick(Collider other)
     {
         // Debug.Log("hit");
         Destroy(stackBrick.Pop()); // Xóa gạch từ stack
@@ -52,6 +60,21 @@ public class StackBrick : MonoBehaviour
         countBrick--;
         Destroy(other.gameObject); // Xóa tấm vàng trên cầu
     }
+    private void clearBrick()
+    {
+        while(countBrick > 1)
+        {
+            Destroy(stackBrick.Pop()); // Xóa gạch từ stack
+            people.transform.position -= brick_y; // Đặt vị trí people
+            countBrick--;
+        }
+    }
+    public void TurnOnFinishLevel()
+    {
+        canvasFinish.SetActive(true);
+        player.isPause = true;
+    }
+
     private void OnTriggerExit(Collider other)
     {
 

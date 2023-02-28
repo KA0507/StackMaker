@@ -179,6 +179,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brick: {fileID: 1531101969777205, guid: 8aad5fca35890fd4389dabb982d52236, type: 3}
   people: {fileID: 4278593448355021658}
+  canvasFinish: {fileID: 0}
+  player: {fileID: 1779392492182952082}
 --- !u!54 &1779392492064633824
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -283,6 +285,7 @@ MonoBehaviour:
   speed: 10
   cube: {fileID: 1779392491605666394}
   swipeControl: {fileID: 7835136267505660666}
+  isPause: 0
 --- !u!65 &1779392492182952080
 BoxCollider:
   m_ObjectHideFlags: 0
